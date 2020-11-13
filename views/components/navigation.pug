@@ -1,0 +1,21 @@
+mixin navigation(props)
+    .ui.pointing.menu
+        a.item(href="/" class= props.title === 'tienda' ? 'active' : '')
+            i.icon.home
+            | Tienda
+        a.item
+            | Inventario
+        a.item
+            | Mi carrito
+        a.item
+            | Mis ordenes
+        a.item(href="/admin" class= props.title === 'crear producto' ? 'active' : '')
+            i.icon.edit
+            | Agregar producto
+        a.item
+            | Mis productos    
+        .right.menu
+            .item
+                .ui.transparent.icon.input
+                    input(type='text' placeholder='Search...')
+                    i.search.link.icon

@@ -1,0 +1,14 @@
+extends ../layout
+
+include ../components/breadcrumb
+include ../components/product-card
+
+block body
+
+    +breadcrumb(state.breadcrumb)
+
+    .row    
+        .col-md-12.mt-3
+            .ui.link.cards
+                +productCard(state.productos)
+

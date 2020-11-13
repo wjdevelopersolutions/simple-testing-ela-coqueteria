@@ -1,0 +1,17 @@
+mixin productCard(productos)
+    if productos
+        each producto in productos
+            .card
+                .image
+                    img(src= producto.Prod_Images[0])
+                .content
+                    .header= producto.Prod_Title
+                    .meta
+                    a.text-capitalize.my-4= producto.Prod_Condition
+                    .description= producto.Prod_Description.slice(0, 98)
+                .extra.content
+                    span.right.floated RD$ #{producto.Prod_Price}
+                    span 
+                        i.user.icon
+                        strong Admin
+
