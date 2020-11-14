@@ -1,0 +1,52 @@
+mixin comparePlugin
+    .w3-container.w3-center.mt-5
+        .w3-container
+            .w3-row-padding
+                .w3-col.l3.m6.relPos.w3-center
+                    .selectProduct.w3-padding(data-title='Nexus5' data-id='Nexus 5' data-size='4.9' data-weight='130 g' data-processor='2.3 GHz, Quad Core, Qualcomm Snapdragon 800' data-battery='2300 mAH')
+                        a.w3-btn-floating.w3-light-grey.addButtonCircular.addToCompare +
+                        img.imgFill.productImg(src='https://www.yaantra.com/ItemImages/Catalog/Products/ThumbNail/RCOne0054_4.jpg')
+                        h4 Oneplus 6
+                .w3-col.l3.m6.relPos.w3-center
+                    .selectProduct.w3-padding(data-title='Nexus5X' data-id='Nexus 5X' data-size='5.2' data-weight='136 g' data-processor='1.44 GHz, Quad Core, Qualcomm Snapdragon 808' data-battery='2700 mAH')
+                        a.w3-btn-floating.w3-light-grey.addButtonCircular.addToCompare +
+                        img.imgFill.productImg(src='https://www.yaantra.com/ItemImages/Catalog/Products/ThumbNail/RCMot0271_1.jpg')
+                        h4 Motorola Moto
+                .w3-col.l3.m6.relPos.w3-center
+                    .selectProduct.w3-padding(data-title='Nexus6' data-id='Nexus 6' data-size='6' data-weight='184 g' data-processor='2.7 GHz, Quad Core, Qualcomm Snapdragon 805' data-battery='3220 mAH')
+                        a.w3-btn-floating.w3-light-grey.addButtonCircular.addToCompare +
+                        img.imgFill.productImg(src='https://www.yaantra.com/ItemImages/Catalog/Products/ThumbNail/RCLG0055_1.jpg')
+                        h4 LG Q6
+                .w3-col.l3.m6.relPos.w3-center
+                    .selectProduct.w3-padding(data-title='Nexus6P' data-id='Nexus 6P' data-size='5.7' data-weight='178 g' data-processor='1.55 GHz, Octa Core, Qualcomm Snapdragon 810 ' data-battery='3450 mAH')
+                        a.w3-btn-floating.w3-light-grey.addButtonCircular.addToCompare +
+                        img.imgFill.productImg(src='https://www.yaantra.com/ItemImages/Catalog/Products/ThumbNail/RCHon0060_1.jpg')
+                        h4 Honor 8 Pro
+            // preview panel
+            .w3-container.w3-center
+                .w3-row.w3-card-4.w3-grey.w3-round-large.w3-border.comparePanle.w3-margin-top
+                    .w3-row
+                        .w3-col.l9.m8.s6.w3-margin-top
+                            h4 Added for comparison
+                        .w3-col.l3.m4.s6.w3-margin-top
+                            button.w3-btn.w3-round-small.w3-white.w3-border.notActive.cmprBtn(disabled='') Compare
+                    .titleMargin.w3-container.comparePan
+            // end of preview panel
+            // comparision popup
+            #id01.w3-animate-zoom.w3-white.w3-modal.modPos
+                .w3-container
+                    a.whiteFont.w3-padding.w3-closebtn.closeBtn(onclick="document.getElementById('id01').style.display='none'") &times;
+                .w3-row.contentPop.w3-margin-top
+            // end of comparision popup
+            // warning model
+            #WarningModal.w3-modal
+                .w3-modal-content.warningModal
+                    header.w3-container.w3-teal
+                    h3
+                        span &#x26A0;
+                        | Error
+                    .w3-container
+                    h4 Maximum of Three products are allowed for comparision
+                    footer.w3-container.w3-right-align
+                    button#warningModalClose.w3-btn.w3-hexagonBlue.w3-margin-bottom(onclick="document.getElementById('id01').style.display='none'") Ok
+                // end of warning model

@@ -1,19 +1,23 @@
 mixin formulario()
 
+    //- Declare vars
+    - const product = state.product ? state.product : {}
+    - const Prod_Images = state.product ? product.Prod_Images.join(';') : ''
+
     form#create-product-form(action="" method="")
         .form-group
             label(for="titulo") Nombre del producto:
-            input.form-control#form-titulo(type="text" name="titulo")
+            input.form-control#form-titulo(type="text" name="titulo" value= product ? product.Prod_Title : '')
         .form-group
             label(for="precio") Precio:
-            input.form-control#form-precio(type="number" step="0.01" name="precio")
+            input.form-control#form-precio(type="number" step="0.01" name="precio" value= product ? product.Prod_Price : '')
         .form-group
             label(for="imagenes") Imagenes:
-            input.form-control#form-imagenes(type="text" name="imagenes")
+            input.form-control#form-imagenes(type="text" name="imagenes" value= product ? Prod_Images : '')
         .form-group
             label(for="descripcion") Descripcion:
-            textarea.form-control#form-descripcion(name="descripcion", cols="30", rows="10")
+            textarea.form-control#form-descripcion(name="descripcion", cols="30", rows="10")= product ? product.Prod_Description : ''
         .form-group
             button.btn.btn-primary(type="submit") 
-                i.icon.plus
-                span Agregar 
+                i(class= product ? 'icon save' : 'icon plus')
+                span= product ? 'Actualizar' : 'Agregar' 

@@ -2,6 +2,7 @@ import axios from 'axios';
 import swal from 'sweetalert';
 
 const productAggregeBtn = document.querySelector('#create-product-form');
+const addToCartBtn = document.querySelectorAll('#add-to-cart');
 
 const formTitulo = document.querySelector('#form-titulo');
 const formPrecio = document.querySelector('#form-precio');
@@ -32,11 +33,11 @@ if (productAggregeBtn) {
         };
 
         
-        axios.post('http://localhost:3000/api/v1/product', producto)
+        axios.post('/admin/add-product', producto)
             .then(response => response)
             .then(data => {
                 console.log(data);
-                swal("Producto creado!", `${data.data.producto.Prod_Title}`, "success")
+                swal("Producto creado!", `${data.data.product.Prod_Title}`, "success")
                     .then(() => {
                         window.location.href = '/'
                     })
@@ -70,5 +71,51 @@ if (productAggregeBtn) {
             });
 
     })
+
+}
+
+
+if(addToCartBtn) {
+
+    for(let i = 0; i <= addToCartBtn.length; i++) {
+
+        addToCartBtn[i].addEventListener('click', function(e) {
+
+            e.preventDefault();
+            const data = {Prod_Slug_Url: this.dataset.product};
+
+            axios.post('/cart', data)
+                .then(res => {
+
+                    if( res.status == 200 ) {
+                        swal({
+                                title: "Agregado al carrito!", 
+                                text: `${res.data.Prod_Title}`, 
+                                icon: "success",
+                                buttons: {
+                                    confirm: 'Ir al carrito'
+                                }
+                            })
+                            .then(() => {
+                                window.location.href = '/cart'
+                            })
+                    }
+                })
+                .catch(err => {
+                    swal ({
+                        title: "Algo salio mal!", 
+                        text: `Error al agregar el articulo al carrito`, 
+                        icon: "error",
+                        buttons: {
+                            cancel: 'Cerrar'
+                        }
+                    })
+                    console.log(err.response.data);
+                    throw new Error(`Error al agregar el articulo al carrito: ${err}`);
+                })
+    
+        });
+
+    }
 
 }

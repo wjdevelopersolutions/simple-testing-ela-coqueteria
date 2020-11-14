@@ -1,0 +1,16 @@
+mixin loginForm()
+
+    form#login-form(action="/login" method="post")
+        .form-group
+            label(for="user") Usuario:
+            input.form-control(type="text" name="usuario")
+        .form-group
+            label(for="password") Contrasena:
+            input.form-control(type="password" name="password")
+        .form-group
+            button.btn.btn-primary(type="submit") 
+                //- i.icon.plus
+                span Entrar
+            //- button#post-login-btn.btn.btn-primary.ml-4(type="button") 
+            //-     //- i.icon.plus
+            //-     span Post Login

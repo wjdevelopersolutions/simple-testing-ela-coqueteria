@@ -1,0 +1,49 @@
+mixin productCardAdmin
+
+    //- Declare vars
+    - const products = state.products
+    - imageStyle = { 'width': '80px', 'heigth': '80px' }
+
+    .card
+        table.table.table-hover.shopping-cart-wrap
+            thead.text-muted
+                tr
+                    th(scope='col') Product
+                    th(scope='col' width='120') Quantity
+                    th(scope='col' width='120') Price
+                    th.text-right(scope='col' width='200') Action
+                tbody
+                    each product in products
+                        tr
+                            td
+                                figure.media
+                                    
+                                    .img-wrap
+                                        img.img-thumbnail.img-sm(style= imageStyle src= product.Prod_Images[0] alt= product.Prod_Title)
+                                    
+                                    figcaption.media-body.ml-3
+                                        .row
+                                            .col-md-12
+                                                h6.title.text-truncate= product.Prod_Title
+                                                dl.param.param-inline.small.mb-0
+                                                    dt Size: 
+                                                    dd XXL
+                                                dl.param.param-inline.small.mb-0
+                                                    dt Color: 
+                                                    dd Orange color
+                            td
+                                select.form-control
+                                    option 1
+                                    option 2
+                                    option 3
+                                    option 4
+                            td
+                                .price-wrap
+                                    .price USD #{product.Prod_Price}
+                                    //- small.text-muted ()
+                                td.text-right
+                                    a.ui.button.mb-3(title='' href=`/admin/add-product?item=${product.Prod_Slug_Url}&edit=true` data-toggle='tooltip' data-original-title='Save to Wishlist')
+                                        i.icon.edit.mr-0
+                                    a.ui.button.bg-danger(href='')
+                                        i.icon.trash.text-light.mr-0
+

@@ -1,0 +1,13 @@
+extends ../layout
+
+include ../components/breadcrumb
+include ../components/product-card-admin
+include ../components/formulario
+
+block body
+
+    +breadcrumb(state.breadcrumb)
+
+    .row    
+        .col-md-12
+            +productCardAdmin

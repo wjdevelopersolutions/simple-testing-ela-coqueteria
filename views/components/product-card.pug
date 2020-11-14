@@ -1,18 +1,41 @@
-mixin productCard(productos)
-    if productos
-        each producto in productos
-            .card#card-product
-                .image#card-product-image
-                    a(href=`/${producto.Prod_Slug_Url}`)
-                        img(src= producto.Prod_Images[0])
-                .content
-                    .header= producto.Prod_Title
-                    .meta
-                    a.text-capitalize.my-4= producto.Prod_Condition
-                    .description= producto.Prod_Description.slice(0, 98)
-                .extra.content
-                    span.right.floated RD$ #{producto.Prod_Price}
-                    span 
-                        i.user.icon
-                        strong Admin
+mixin productCard
+
+    //- Vars
+    - const iconStyle = { 'font-size': '1.5rem' }
+    - const products = state.products
+
+    each product in products
+        .card#card-product
+            .image#card-product-image
+                a(href=`/${product.Prod_Slug_Url}`)
+                    img(src= product.Prod_Images[0])
+            .content
+                .header= product.Prod_Title
+                .meta
+                    a.text-capitalize.my-4= product.Prod_Condition
+                .description= product.Prod_Description.slice(0, 98)
+                //- a.mt-3.btn.btn-primary.btn-block Add to cart
+            .extra.content
+                //- span.right.floated RD$ #{producto.Prod_Price}
+                a.right.floated(href=`/products/${product.Prod_Slug_Url}`) 
+                    |   Detalle
+                if state.isAuthentication
+                    a#add-to-cart(href="#" data-product=product.Prod_Slug_Url) 
+                        i.shop.icon
+                        strong Add to cart
+                else 
+                    span
+                        strong RD$ #{product.Prod_Price}
+    else
+        .card
+            .content.text-center
+                i.shopping.bag.icon(style= iconStyle)
+                .header Sin productos
+                .description
+                | Actualmente la tienda no tiene productos que mostrar, agrega tu producto ahora!
+            a.ui.bottom.attached.button(href="/admin/add-product")
+                i.add.icon
+                | Agregar producto
+
+
 

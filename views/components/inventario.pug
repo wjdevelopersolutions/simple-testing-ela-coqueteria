@@ -1,0 +1,36 @@
+mixin inventoryTable
+
+    //- Declare vars
+    - const products = state.products
+
+    table.ui.celled.padded.table
+        thead
+            tr
+            th.single.line Image
+            th Title
+            th Score
+            th Description
+        tbody
+
+            each product in products
+                tr
+                    td
+                        h2.ui.center.aligned.header
+                            img(src= product.Prod_Images[0])
+                    td.single.line #{product.Prod_Title.slice(0, 20)} ...
+                    td.right.aligned $#{product.Prod_Price}
+                        br
+                        a(href='#') #{product.Prod_Sold} Vendidos
+                    td #{product.Prod_Description.slice(0, 200)} ...
+    tfoot
+        tr
+        th(colspan='5')
+            .ui.right.floated.pagination.menu
+                a.icon.item
+                    i.left.chevron.icon
+                a.item 1
+                a.item 2
+                a.item 3
+                a.item 4
+                a.icon.item
+                    i.right.chevron.icon
