@@ -1,9 +1,10 @@
 mixin productCard(productos)
     if productos
         each producto in productos
-            .card
-                .image
-                    img(src= producto.Prod_Images[0])
+            .card#card-product
+                .image#card-product-image
+                    a(href=`/${producto.Prod_Slug_Url}`)
+                        img(src= producto.Prod_Images[0])
                 .content
                     .header= producto.Prod_Title
                     .meta

@@ -12,7 +12,8 @@ mixin navigation(props)
         a.item(href="/admin" class= props.title === 'crear producto' ? 'active' : '')
             i.icon.edit
             | Agregar producto
-        a.item
+        a.item(href="/admin/products" class= props.title === 'mis productos' ? 'active' : '')
+            i.icon.user
             | Mis productos    
         .right.menu
             .item

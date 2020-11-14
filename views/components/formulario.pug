@@ -3,16 +3,16 @@ mixin formulario()
     form#create-product-form(action="" method="")
         .form-group
             label(for="titulo") Nombre del producto:
-            input.form-control(type="text" name="titulo")
+            input.form-control#form-titulo(type="text" name="titulo")
         .form-group
             label(for="precio") Precio:
-            input.form-control(type="number" step="0.01" name="precio")
+            input.form-control#form-precio(type="number" step="0.01" name="precio")
         .form-group
             label(for="imagenes") Imagenes:
-            input.form-control(type="text" name="imagenes")
+            input.form-control#form-imagenes(type="text" name="imagenes")
         .form-group
             label(for="descripcion") Descripcion:
-            textarea.form-control(name="descripcion", cols="30", rows="10")
+            textarea.form-control#form-descripcion(name="descripcion", cols="30", rows="10")
         .form-group
             button.btn.btn-primary(type="submit") 
                 i.icon.plus

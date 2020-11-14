@@ -22,6 +22,36 @@ exports.getIndex = (req, res, next) => {
     .catch(err => {
         console.log(err);
         throw new Error(err);
-    })
+    });
     
 }
+
+exports.getIndexById = (req, res, next) => {
+
+
+    axios.get(`http://localhost:3000/api/v1/product/${req.params.id}`)
+    .then(result => {
+        return result.data;
+    })
+    .then(data => {
+
+        console.log(data.result);
+        res.render('shop/detail', {
+            state: {
+                pageTitle: 'index page',
+                breadcrumb: {
+                    icon: 'eye',
+                    title: 'Detalle de producto',
+                    leyenda: 'Detalle del producto por el ID'
+                }
+            }
+        });
+    })
+    .catch(err => {
+        console.log(err);
+        throw new Error(err);
+    });
+
+
+}
+

@@ -2,6 +2,7 @@ extends ../layout
 
 include ../components/breadcrumb
 include ../components/product-card
+include ../components/product-detail
 
 block body
 
@@ -9,6 +10,5 @@ block body
 
     .row    
         .col-md-12.col-12.mt-3
-            .ui.link.cards
-                +productCard(state.productos)
-
+            +productDetail
+            

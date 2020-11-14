@@ -1,0 +1,74 @@
+mixin productDetail()
+    .wrapper
+        .breadcrumb-wrapper
+            .breadcrumb-area.breadcrumbs.overlay-bg
+                .container
+                    .row
+                        .col-12
+                            .breadcrumb-content.text-center
+                                h1.breadmome-name.breadcrumbs-title Lorem Ipsum is simply dummy text
+                                nav(role='navigation' aria-label='breadcrumbs')
+                                    ul.breadcrumb-list
+                                        li
+                                            a(href='#') Home
+                                        li
+                                            a(href='#') Sport &amp; Outdoor
+                                            span Lorem Ipsum is simply dummy text
+        main
+            #shopify-section-product-template.shopify-section
+                .single-product-area.mt-80.mb-80
+                    .container
+                        .row
+                            .col-md-5
+                                #ProductPhoto.product-details-large
+                                    img#ProductPhotoImg.product-zoom(data-image-id='' alt='12. Aliexpress dropshipping by oberlo' data-zoom-image='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/36_1024x1024.jpg?v=1544416552' src='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/36_1024x1024.jpg?v=1544416552')
+                                #ProductThumbs.product-thumbnail.owl-carousel.mt-3
+                                    a.product-single__thumbnail.active(href='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/36_1024x1024.jpg?v=1544416552' data-image='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/36_1024x1024.jpg?v=1544416552' data-zoom-image='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/36_1024x1024.jpg?v=1544416552' data-image-id='6995357106246')
+                                        img(src='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/36_compact.jpg?v=1544416552' alt='12. Aliexpress dropshipping by oberlo')
+                                    a.product-single__thumbnail(href='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/40_1024x1024.jpg?v=1544416552' data-image='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/40_1024x1024.jpg?v=1544416552' data-zoom-image='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/40_1024x1024.jpg?v=1544416552' data-image-id='6995358023750')
+                                        img(src='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/40_compact.jpg?v=1544416552' alt='12. Aliexpress dropshipping by oberlo')
+                                    a.product-single__thumbnail(href='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/37_1024x1024.jpg?v=1544416552' data-image='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/37_1024x1024.jpg?v=1544416552' data-zoom-image='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/37_1024x1024.jpg?v=1544416552' data-image-id='6995357302854')
+                                        img(src='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/37_compact.jpg?v=1544416552' alt='12. Aliexpress dropshipping by oberlo')
+                                    a.product-single__thumbnail(href='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/38_1024x1024.jpg?v=1544416552' data-image='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/38_1024x1024.jpg?v=1544416552' data-zoom-image='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/38_1024x1024.jpg?v=1544416552' data-image-id='6995357532230')
+                                        img(src='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/38_compact.jpg?v=1544416552' alt='12. Aliexpress dropshipping by oberlo')
+                                    a.product-single__thumbnail(href='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/39_1024x1024.jpg?v=1544416552' data-image='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/39_1024x1024.jpg?v=1544416552' data-zoom-image='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/39_1024x1024.jpg?v=1544416552' data-image-id='6995357728838')
+                                        img(src='http://cdn.shopify.com/s/files/1/0067/5617/1846/products/39_compact.jpg?v=1544416552' alt='12. Aliexpress dropshipping by oberlo')
+                            .col-md-7
+                                .single-product-content
+                                    form#AddToCartForm.shopify-product-form(method='post' accept-charset='UTF-8' enctype='multipart/form-data')
+                                        input(type='hidden' name='form_type' value='product')
+                                        input(type='hidden' name='utf8' value='✓')
+                                        .product-details
+                                            h1.single-product-name Lorem Ipsum is simply dummy text
+                                            .single-product-reviews
+                                                span.shopify-product-reviews-badge(data-id='1912078270534')
+                                            .product-sku
+                                            | SKU: 
+                                            span.variant-sku YQT71020193
+                                            .single-product-price
+                                                .product-discount
+                                                    span#ProductPrice.price
+                                                    span.money $20.66
+                                            .product-info
+                                                | Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                            .single-product-action
+                                                .product-variant-option
+                                                    select#productSelect.product-single__variants(name='id' style='display:none;')
+                                                        option(selected='selected' data-sku='YQT71020193' value='19506517377094')
+                                                            | Default Title - 
+                                                            span.money $20.66 USD
+                                                .product-add-to-cart
+                                                    span.control-label Quantity
+                                                    .cart-plus-minus
+                                                        input.cart-plus-minus-box(type='text' name='quantity' value='1')
+                                                    .add.d-flex
+                                                        button#AddToCart.add-to-cart.ajax-spin-cart(type='submit')
+                                                            i.ion-bag
+                                                            span#AddToCartText.list-cart-title.cart-title Add to cart
+                                                        .single-product-wishlist
+                                                            a.add-to-cart.action-wishlist.wishlist(href='#' title='Wishlist')
+                                                                i.fa.fa-heart
+                                                    //- .secure-payment
+                                                    //-     img(src='http://cdn.shopify.com/s/files/1/0067/5617/1846/files/guaranteed_safe_checkout1.png?v=1545216773')
+
+
