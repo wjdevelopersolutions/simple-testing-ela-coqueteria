@@ -18,11 +18,16 @@ block body
                 for product in products
                     .item
                         .right.floated.content
-                            .ui.button 
+                            a#delete-cart(class="ui button" href="#" data-product= product._id) 
                                 i.icon.trash
                                 | Eliminar
                         img.ui.avatar.image(src= product.Prod_Id.Prod_Images[0])
                         .content
                             a(href=`/products/${product.Prod_Id.Prod_Slug_Url}`)
                                 | #{product.Prod_Id.Prod_Title} (#{product.Item_Quantity})
+            .form
+                .form-group
+                    button.btn.btn-primary.mt-4 
+                        i.icon.dolly
+                        |   Crear orden
 

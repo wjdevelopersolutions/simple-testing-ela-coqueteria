@@ -90,7 +90,7 @@ const postAddProducts = (req, res, next) => {
                 success: true,
                 msg: 'producto creado',
                 Prod_Title: product.Prod_Title
-            })
+            });
         });
 
 }

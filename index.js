@@ -60,23 +60,23 @@ app.use((req, res, next) => {
     
 });
 
-app.use((req, res, next) => {
+// app.use((req, res, next) => {
 
-    // Dominio que tengan acceso (ej. 'http://example.com')
-       res.setHeader('Access-Control-Allow-Origin', '*');
+//     // Dominio que tengan acceso (ej. 'http://example.com')
+//        res.setHeader('Access-Control-Allow-Origin', '*');
     
-    // Metodos de solicitud que deseas permitir
-       res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//     // Metodos de solicitud que deseas permitir
+//        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     
-    // Encabecedados que permites (ej. 'X-Requested-With,content-type')
-       res.setHeader('Access-Control-Allow-Headers', '*');
+//     // Encabecedados que permites (ej. 'X-Requested-With,content-type')
+//        res.setHeader('Access-Control-Allow-Headers', '*');
     
-    next();
-});
+//     next();
+// });
 
-corsOpts = {
-    origin: 'http://localhost:4000'
-}
+// corsOpts = {
+//     origin: 'http://localhost:4000'
+// }
 
 app.set(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -91,8 +91,8 @@ const shopRouters = require('./routes/shop.route');
 const adminRouters = require('./routes/admin.route');
 const authRouters = require('./routes/auth.route');
 
-app.use(cors(corsOpts), shopRouters);
-app.use('/admin', cors(corsOpts), adminRouters);
+app.use(shopRouters);
+app.use('/admin', adminRouters);
 app.use(authRouters);
 
 

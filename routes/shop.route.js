@@ -8,7 +8,8 @@ router.route('/')
     .get(shopController.getShop)
 
 router.route('/products')
-    .get(shopController.getProducts);
+    .get(shopController.getProducts)
+    .delete(shopController.deleteProduct);
 
 router.route('/products/:url')
     .get(shopController.getProductBySlugUrl);
@@ -19,7 +20,7 @@ router.route('/compare/:Prod_Slug_Url')
 router.route('/cart')
     .get(shopController.getCart)
     .post(shopController.postCart)
-    .delete(shopController.deleteCart)
+    .put(shopController.putCart)
 
 router.route('/orders')
     .get(shopController.getOrders);

@@ -1,4 +1,5 @@
 const Product = require('../models/product.model');
+const User = require('../models/user.model');
 
 const getShop = (req, res, next) => {
 
@@ -64,6 +65,26 @@ const getProductBySlugUrl = (req, res, next) => {
 
 }
 
+const deleteProduct = (req, res, next) => {
+
+    Product.findOneAndDelete(req.query.Prod_Id)
+        .then(product => {
+            console.log('producto eliminado');
+            res.json({
+                success: true,
+                msg: 'producto eliminado',
+                Prod_Id: product.Prod_Title 
+            });
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(400).json({
+                success: false,
+                msg: 'No se pudo eliminar el producto'
+            })
+        })
+}
+
 const getCompare = (req, res, next) => {
 
     res.render('shop/compare', {
@@ -118,9 +139,21 @@ const postCart = (req, res, next) => {
         });
 }
 
-const deleteCart = (req, res, next) => {
+const putCart = (req, res, next) => {
 
-    console.log(req.body);
+    req.user.removeFromCart(req.body.Prod_Id)
+        .then(product => {
+            res.json({
+                success: true,
+                msg: 'producto eliminado'
+            })
+        })
+        .catch(error => {
+            res.json({
+                success: false,
+                msg: 'No se pudo eliminar el producto'
+            });
+        });
 
 }
 
@@ -144,9 +177,10 @@ module.exports = {
     getShop,
     getProducts,
     getProductBySlugUrl,
+    deleteProduct,
     getCompare,
     getCart,
     postCart,
-    deleteCart,
+    putCart,
     getOrders
 }

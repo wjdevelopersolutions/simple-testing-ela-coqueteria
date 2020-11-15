@@ -15,7 +15,7 @@ const insertOne = product => {
                 }
             })
             .then(() => {
-                window.location.href = '/admin/products'
+                window.location.href = '/'
             })
         })
         .catch(err => {

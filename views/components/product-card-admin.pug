@@ -2,7 +2,7 @@ mixin productCardAdmin
 
     //- Declare vars
     - const products = state.products
-    - imageStyle = { 'width': '80px', 'heigth': '80px' }
+    - imageStyle = { 'width': '100px', 'heigth': '100px' }
 
     .card
         table.table.table-hover.shopping-cart-wrap
@@ -17,10 +17,8 @@ mixin productCardAdmin
                         tr
                             td
                                 figure.media
-                                    
                                     .img-wrap
-                                        img.img-thumbnail.img-sm(style= imageStyle src= product.Prod_Images[0] alt= product.Prod_Title)
-                                    
+                                        img(style= imageStyle src= product.Prod_Images[0] alt= product.Prod_Title)
                                     figcaption.media-body.ml-3
                                         .row
                                             .col-md-12
@@ -44,6 +42,6 @@ mixin productCardAdmin
                                 td.text-right
                                     a.ui.button.mb-3(title='' href=`/admin/add-product?item=${product.Prod_Slug_Url}&edit=true` data-toggle='tooltip' data-original-title='Save to Wishlist')
                                         i.icon.edit.mr-0
-                                    a.ui.button.bg-danger(href='')
+                                    a#delete-product-btn(class="ui button bg-danger" href='#' data-product= product._id)
                                         i.icon.trash.text-light.mr-0
 
