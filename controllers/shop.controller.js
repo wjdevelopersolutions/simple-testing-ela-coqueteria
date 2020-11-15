@@ -118,6 +118,12 @@ const postCart = (req, res, next) => {
         });
 }
 
+const deleteCart = (req, res, next) => {
+
+    console.log(req.body);
+
+}
+
 const getOrders = (req, res, next) => {
 
     res.render('shop/orders', {
@@ -141,5 +147,6 @@ module.exports = {
     getCompare,
     getCart,
     postCart,
+    deleteCart,
     getOrders
 }

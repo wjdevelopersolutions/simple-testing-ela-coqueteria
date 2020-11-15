@@ -17,6 +17,7 @@ const getAddProducts = (req, res, next) => {
                     title: 'crear producto',
                     leyenda: 'Agrega tu producto al inventario'
                 },
+                product: null,
                 isAuthentication: req.session.isLogguedIn
             }
         });
@@ -45,42 +46,50 @@ const postAddProducts = (req, res, next) => {
 
     const errors = validationResult(req);
 
+    const { item, edit, product } = req.body;
+
     if (!errors.isEmpty()) {
         console.log({errors: errors.array()});
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const Prod_Title_Slug = slug(req.body.Prod_Title);
-    const Prod_Url = `${Prod_Title_Slug}-${nanoid(10)}`; 
+    
+    if(edit) {
 
-    const body = {
-    Prod_Title: req.body.Prod_Title,
-    Prod_Slug: Prod_Title_Slug,
-    Prod_Slug_Url: Prod_Url,
-    Prod_Price: req.body.Prod_Price,
-    Prod_Images: req.body.Prod_Images,
-    Prod_Videos: req.body.Prod_Videos,
-    Prod_Description: req.body.Prod_Description,
-    Usr_Id: req.user._id
+        return Product.findOneAndUpdate({ Prod_Slug_Url: item}, product, {new: true})
+        .then(product => {
+            return res.json({
+                success: true,
+                msg: 'producto modificado',
+                Prod_Title: product.Prod_Title
+            });
+        })
+        .catch(error => {
+            return res.status(500).json({
+                success: false,
+                msg: 'No se pudo modificar el producto',
+                error
+            });
+        });
+
     }
 
-    const producto = new Product(body);
+    const Prod_Title_Slug = slug(product.Prod_Title);
+    const Prod_Url = `${Prod_Title_Slug}-${nanoid(10)}`; 
 
-    console.log(producto);
+    product.Prod_Slug = Prod_Title_Slug;
+    product.Prod_Slug_Url = Prod_Url;
+    product.Usr_Id = req.user._id
+
+    const producto = new Product(product);
 
     producto.save()
         .then(product => {
-            res.status(201).json({
+
+            res.json({
                 success: true,
-                msg: 'Se ha creado el producto',
-                product
-            })
-        })
-        .catch(err => {
-            res.status(500).json({
-                success: false,
-                msg: 'No se pudo crear el producto',
-                error
+                msg: 'producto creado',
+                Prod_Title: product.Prod_Title
             })
         });
 

@@ -19,6 +19,7 @@ router.route('/compare/:Prod_Slug_Url')
 router.route('/cart')
     .get(shopController.getCart)
     .post(shopController.postCart)
+    .delete(shopController.deleteCart)
 
 router.route('/orders')
     .get(shopController.getOrders);

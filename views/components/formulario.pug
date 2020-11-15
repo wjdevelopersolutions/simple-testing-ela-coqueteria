@@ -1,10 +1,10 @@
 mixin formulario()
 
     //- Declare vars
-    - const product = state.product ? state.product : {}
+    - const product = state.product 
     - const Prod_Images = state.product ? product.Prod_Images.join(';') : ''
 
-    form#create-product-form(action="" method="")
+    form#addProductForm(action="" method="")
         .form-group
             label(for="titulo") Nombre del producto:
             input.form-control#form-titulo(type="text" name="titulo" value= product ? product.Prod_Title : '')
@@ -18,6 +18,9 @@ mixin formulario()
             label(for="descripcion") Descripcion:
             textarea.form-control#form-descripcion(name="descripcion", cols="30", rows="10")= product ? product.Prod_Description : ''
         .form-group
-            button.btn.btn-primary(type="submit") 
+            input(type="hidden" name="action" value= product ? 'update' : 'create')
+            input(type="hidden" name="product" value= product ? product._id : '')
+        .form-group
+            button#addProductButton(class="btn btn-primary" type="submit") 
                 i(class= product ? 'icon save' : 'icon plus')
                 span= product ? 'Actualizar' : 'Agregar' 

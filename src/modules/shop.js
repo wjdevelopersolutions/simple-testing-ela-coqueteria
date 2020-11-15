@@ -1,87 +1,55 @@
+import { insertOne, updateOne } from './add-product-form-actions';
 import axios from 'axios';
 import swal from 'sweetalert';
 
-const productAggregeBtn = document.querySelector('#create-product-form');
+const addProductForm = document.querySelector('#addProductForm');
 const addToCartBtn = document.querySelectorAll('#add-to-cart');
 
-const formTitulo = document.querySelector('#form-titulo');
-const formPrecio = document.querySelector('#form-precio');
-const formImagenes = document.querySelector('#form-imagenes');
-const formDescripcion = document.querySelector('#form-descripcion');
+if (addProductForm) {
 
-
-
-
-if (productAggregeBtn) {
-
-    formPrecio.addEventListener('keypress', function(event) {
-        this.classList.remove('is-invalid');
-    })
-
-
-    productAggregeBtn.addEventListener('submit', event => {
+    addProductForm.addEventListener('submit', function(event) {
 
         event.preventDefault();
 
-        const producto = {
-            
-                Prod_Title: event.target.titulo.value,
-                Prod_Price: event.target.precio.value,
-                Prod_Images: event.target.imagenes.value.split(';'),
-                Prod_Videos: [],
-                Prod_Description: event.target.descripcion.value
+        const product = {
+            Prod_Title: this.titulo.value,
+            Prod_Price: this.precio.value,
+            Prod_Images: this.imagenes.value,
+            Prod_Videos: [],
+            Prod_Description: this.descripcion.value
+        }
+        
+        const action = event.target.action.value;
+
+        const urlParams = new URL(window.location.href);
+        const urlSearchParams = urlParams.searchParams;
+
+        const item = urlSearchParams.get('item');
+        const edit = urlSearchParams.get('edit');
+
+        switch (action) {
+            case 'create':
+                insertOne(product)
+                break;
+            case 'update':
+                updateOne({ item, edit, product });
+            default:
+                break;
         };
 
-        
-        axios.post('/admin/add-product', producto)
-            .then(response => response)
-            .then(data => {
-                console.log(data);
-                swal("Producto creado!", `${data.data.product.Prod_Title}`, "success")
-                    .then(() => {
-                        window.location.href = '/'
-                    })
-            })
-            .catch(err => {
-
-                const errors = err.response.data.errors;
-                
-                for(let i = 0; i <= errors.length; i++) {
-
-                    switch (`${errors[i].param}`) {
-                        case 'Prod_Title':
-                            formTitulo.classList.add('is-invalid')
-                            break;
-                        case 'Prod_Price':
-                            formPrecio.classList.add('is-invalid')
-                            break;
-                        case 'Prod_Images':
-                            formImagenes.classList.add('is-invalid')
-                            break;
-                        case 'Prod_Description':
-                            formDescripcion.classList.add('is-invalid')
-                            break;
-                    
-                        default:
-                            break;
-                    }
-                }
-                // formTitulo.classList.add('is-invalid');
-                console.log(errors);
-            });
-
-    })
+    });
 
 }
 
 
 if(addToCartBtn) {
 
-    for(let i = 0; i <= addToCartBtn.length; i++) {
+    addToCartBtn.forEach( button => {
 
-        addToCartBtn[i].addEventListener('click', function(e) {
+        button.addEventListener('click', function(e) {
 
             e.preventDefault();
+
             const data = {Prod_Slug_Url: this.dataset.product};
 
             axios.post('/cart', data)
@@ -116,6 +84,6 @@ if(addToCartBtn) {
     
         });
 
-    }
+    });
 
 }

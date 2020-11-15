@@ -16,10 +16,13 @@ block body
 
             .ui.middle.aligned.divided.list
                 for product in products
-                    a.item(href=`/products/${product.Prod_Id.Prod_Slug_Url}`)
+                    .item
                         .right.floated.content
-                            .ui.button Add
+                            .ui.button 
+                                i.icon.trash
+                                | Eliminar
                         img.ui.avatar.image(src= product.Prod_Id.Prod_Images[0])
                         .content
-                            | #{product.Prod_Id.Prod_Title} (#{product.Item_Quantity})
+                            a(href=`/products/${product.Prod_Id.Prod_Slug_Url}`)
+                                | #{product.Prod_Id.Prod_Title} (#{product.Item_Quantity})
 

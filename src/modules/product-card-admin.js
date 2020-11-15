@@ -26,6 +26,3 @@
             }, 800);
         }
     });
-
-
-    console.log('Admin card');
