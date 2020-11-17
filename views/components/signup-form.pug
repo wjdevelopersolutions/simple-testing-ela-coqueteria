@@ -1,0 +1,19 @@
+mixin signupForm()
+
+    form#signup-form
+        .form-group
+            label(for="name") Nombre:
+            input.form-control(type="text" name="name")
+        .form-group
+            label(for="user") Email:
+            input.form-control(type="email" name="email")
+        .form-group
+            label(for="password") Contraseña:
+            input.form-control(type="password" name="password")
+        .form-group
+            label(for="confirmPassword") Confirmar contraseña:
+            input.form-control(type="password" name="confirmPassword")
+        .form-group
+            button.btn.btn-primary(type="submit") 
+                //- i.icon.plus
+                span Registrarte

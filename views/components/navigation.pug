@@ -26,6 +26,10 @@ mixin navigation(props)
                     .ui.button 
                         i.icon.sign-in
                         span Log in
+                a.item(href="/signup")
+                    .ui.button 
+                        i.icon.sign-out
+                        span Sign up
             else 
                 .item
                     form(action="/logout" method="post")

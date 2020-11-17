@@ -6,7 +6,25 @@ include ../components/product-detail
 
 block body
 
+    //- Mixin usage
     +breadcrumb(state.breadcrumb)
+
+    //- Declare default vars
+    - const orders = state.orders
 
     .row    
         .col-md-12.col-12.mt-3
+        table.ui.celled.table
+            thead
+                tr
+                    th Orden
+                    th Cantidad
+                    th Descripción
+            tbody
+                each order in orders
+                    each product in order.Ord_Products
+                        tr 
+                            td= order._id
+                            td= product.Cart_Prod_Quantity
+                            td= product.Cart_Prod.Prod_Title
+        

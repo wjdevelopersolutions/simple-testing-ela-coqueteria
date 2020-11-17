@@ -10,24 +10,28 @@ block body
 
     //- Declare vars
     - const products = state.products
+    - const imageStyle = { 'width': '80px', 'heigth': '80px' }
 
-    .row    
-        .col-md-12.col-12.mt-5
-
-            .ui.middle.aligned.divided.list
-                for product in products
+    .ui.middle.aligned.divided.list.mt-5
+        .row
+            for product in products
+                .col-md-12.mb-2
                     .item
-                        .right.floated.content
-                            a#delete-cart(class="ui button" href="#" data-product= product._id) 
-                                i.icon.trash
-                                | Eliminar
-                        img.ui.avatar.image(src= product.Prod_Id.Prod_Images[0])
-                        .content
-                            a(href=`/products/${product.Prod_Id.Prod_Slug_Url}`)
-                                | #{product.Prod_Id.Prod_Title} (#{product.Item_Quantity})
-            .form
-                .form-group
-                    button.btn.btn-primary.mt-4 
+                        .row.d-flex.align-items-center
+                            .col-1
+                                img.ui.image(style= imageStyle src= product.Prod_Id.Prod_Images[0])
+                            .col-9
+                                .content
+                                    a(href=`/products/${product.Prod_Id.Prod_Slug_Url}`)
+                                        | #{product.Prod_Id.Prod_Title} (#{product.Item_Quantity})
+                            .col-2
+                                a#delete-cart(class="ui button" href="#" data-product= product._id) 
+                                    i.icon.trash
+                                    | Eliminar
+        if products.length > 0
+            .row
+                .col-12
+                    a#create-order(class="btn btn-primary mt-4" href="#") 
                         i.icon.dolly
                         |   Crear orden
 

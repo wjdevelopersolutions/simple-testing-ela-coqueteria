@@ -1,4 +1,4 @@
-mixin productDetail()
+mixin productDetail
     .wrapper
         .breadcrumb-wrapper
             .breadcrumb-area.breadcrumbs.overlay-bg
@@ -42,9 +42,7 @@ mixin productDetail()
                                             .single-product-reviews
                                                 span.shopify-product-reviews-badge(data-id='1912078270534')
                                             .product-sku
-                                            //- | Estado: 
                                             a(class="ui tag label")= state.product.Prod_Condition
-                                            //- span.variant-sku.text-uppercase= state.product.Prod_Condition
                                             .single-product-price
                                                 .product-discount.d-flex.justify-content-between
                                                     span#ProductPrice.price
@@ -72,9 +70,10 @@ mixin productDetail()
                                                                 i.icon.flag.outline 
                                                                 |   Disponible
                                                                 .floating.ui.bg-success.label 15
-                                                        button#AddToCart.ui.button(type='submit')
-                                                            i.icon.shop
-                                                            a#add-to-cart.list-cart-title.cart-title(href="#" data-product= state.product.Prod_Slug_Url) Add to cart
+                                                        if state.isAuthentication
+                                                            button#AddToCart.ui.button(type='submit')
+                                                                i.icon.shop
+                                                                a#add-to-cart.list-cart-title.cart-title(href="#" data-product= state.product.Prod_Slug_Url) Add to cart
                                                         .single-product-wishlist
                                                             a.add-to-cart.ui.button.d-flex(href='#' title='Wishlist')
                                                                 i.fa.fa-heart.d-flex.align-self-center
