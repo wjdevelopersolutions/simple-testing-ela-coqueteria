@@ -2,6 +2,11 @@ import { insertOne, updateOne } from './add-product-form-actions';
 import axios from 'axios';
 import swal from 'sweetalert';
 
+/**
+ * Csurf npm
+ */
+var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
 const addProductForm = document.querySelector('#addProductForm');
 const deleteCartBtn = document.querySelectorAll('#delete-cart');
 const addToCartBtn = document.querySelectorAll('#add-to-cart');
@@ -48,7 +53,11 @@ if (addToCartBtn) {
 			const data = { Prod_Slug_Url: this.dataset.product };
 
 			axios
-				.post('/cart', data)
+				.post('/cart', data, {
+					headers: {
+						'CSRF-Token': token
+					}
+				})
 				.then((response) => {
 					if (response.status == 200) {
 						swal({
@@ -96,13 +105,19 @@ if (deleteCartBtn) {
 			}).then((willDelete) => {
 				if (willDelete) {
 					axios
-						.put('/cart', { Prod_Id })
+						.put('/cart', { Prod_Id }, {
+							headers: {
+								'CSRF-Token': token
+							}
+						})
 						.then((response) => {
-							swal(response.data.msg, {
-								icon: 'success',
-							}).then(() => {
-								window.location.href = '/cart';
-							});
+							if(response.status === 200) {
+								swal(response.data.msg.toUpperCase(), {
+									icon: 'success',
+								}).then(() => {
+									window.location.href = '/cart';
+								});
+							}
 						})
 						.catch((error) => {
 							console.log(error.response);
@@ -131,6 +146,9 @@ if (deleteProductBtn) {
 							params: {
 								Prod_Id: `${this.dataset.product}`,
 							},
+							headers: {
+								'CSRF-Token': token
+							}
 						})
 						.then((response) => {
 							swal(response.data.msg.toUpperCase(), {
@@ -156,7 +174,11 @@ if (createOrder) {
 	createOrder.addEventListener('click', (event) => {
 		event.preventDefault();
 		axios
-			.post('/orders')
+			.post('/orders', {}, {
+				headers: {
+					'CSRF-Token': token
+				}
+			})
 			.then((response) => {
 				swal({
 					title: `${response.data.msg.toUpperCase()}`,

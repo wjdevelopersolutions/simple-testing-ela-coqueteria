@@ -6,7 +6,7 @@ mixin navigation(props)
         a.item(href="/products")
             i(class="boxes icon")
             | products
-        if state.isAuthentication
+        if isAuthenticated
             a.item(href="/cart")
                 i(class="shop icon")
                 | My cart
@@ -21,7 +21,7 @@ mixin navigation(props)
                 | Mis productos    
         .right.menu
             .ui.menu
-            if !state.isAuthentication
+            if !isAuthenticated
                 a.item(href="/login")
                     .ui.button 
                         i.icon.sign-in
@@ -31,6 +31,7 @@ mixin navigation(props)
                         i.icon.sign-out
                         span Sign up
             else 
-                .item
-                    form(action="/logout" method="post")
-                        button.ui.button Log out
+                a#logout-btn(class="item" href="#")
+                    .ui.button 
+                        i.icon.sign-out
+                        span Log uot

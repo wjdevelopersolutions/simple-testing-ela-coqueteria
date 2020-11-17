@@ -1,13 +1,31 @@
 const Product = require('../models/product.model');
 const slug = require('slug');
+const _ = require('underscore');
 const { nanoid } = require('nanoid');
 const { validationResult } = require('express-validator');
-const _ = require('underscore');
+
+
+const getProducts = (req, res, next) => {
+
+	Product.find({Usr_Id: req.user._id}).then((products) => {
+		res.render('admin/products', {
+			state: {
+				breadcrumb: {
+					icon: 'user',
+					title: 'My products',
+					leyenda: 'Show all my products in list!',
+				},
+				products
+			},
+		});
+	});
+
+};
+
 
 const getAddProducts = (req, res, next) => {
-	const { item, edit } = req.query;
 
-	if (!edit) {
+	if (!req.query.edit) {
 		return res.render('admin/edit-product', {
 			state: {
 				breadcrumb: {
@@ -15,22 +33,20 @@ const getAddProducts = (req, res, next) => {
 					title: 'crear producto',
 					leyenda: 'Agrega tu producto al inventario',
 				},
-				product: null,
-				isAuthentication: req.session.isLogguedIn,
+				product: null
 			},
 		});
 	}
 
-	Product.findOne({ Prod_Slug_Url: item }).then((product) => {
+	Product.findOne({ Prod_Slug_Url: req.query.item }).then((product) => {
 		res.render('admin/edit-product', {
 			state: {
 				breadcrumb: {
 					icon: 'edit',
 					title: 'modificar producto',
-					leyenda: `estas modificando:     ${item}`,
+					leyenda: `estas modificando: ${req.query.item}`,
 				},
-				product,
-				isAuthentication: req.session.isLogguedIn,
+				product
 			},
 		});
 	});
@@ -80,22 +96,6 @@ const postAddProducts = (req, res, next) => {
 			success: true,
 			msg: 'producto creado',
 			Prod_Title: product.Prod_Title,
-		});
-	});
-};
-
-const getProducts = (req, res, next) => {
-	Product.find().then((products) => {
-		res.render('admin/products', {
-			state: {
-				breadcrumb: {
-					icon: 'user',
-					title: 'My products',
-					leyenda: 'Show all my products in list!',
-				},
-				products,
-				isAuthentication: req.session.isLogguedIn,
-			},
 		});
 	});
 };

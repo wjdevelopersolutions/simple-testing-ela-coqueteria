@@ -1,78 +1,131 @@
 import axios from 'axios';
-import Swal from 'sweetalert';
+import swal from 'sweetalert';
 import User from '../class/User';
 
-const postLoginBtn = document.querySelector('#post-login-btn');
-const postLogOutBtn = document.querySelector('#log-out-btn');
-const signupForm = document.querySelector('#signup-form');
 
-// if (postLoginBtn) {
-// 	postLoginBtn.addEventListener('click', () => {
-// 		fetch('http://localhost:3000/api/v1/auth/login', {
-// 			method: 'POST',
-// 			headers: {
-// 				'Content-Type': 'application/json',
-// 			},
-// 		})
-// 			.then((res) => {
-// 				console.log(res);
-// 				return res.json();
-// 			})
-// 			.catch((err) => console.log(err))
-// 			.then((response) => {
-// 				console.log(response);
-// 			});
-// 	});
-// }
+/**
+ * Csurf npm
+ */
+var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-// if (postLogOutBtn) {
-// 	postLogOutBtn.addEventListener('click', () => {
-// 		fetch('http://localhost:3000/api/v1/auth/logout', {
-// 			method: 'POST',
-// 			headers: {
-// 				'Content-Type': 'application/json',
-// 			},
-// 		})
-// 			.then((res) => {
-// 				console.log(res);
-// 				return res.json();
-// 			})
-// 			.catch((err) => console.log(err))
-// 			.then((response) => {
-// 				console.log(response);
-// 			});
-// 	});
-// }
 
-console.log('Session');
+((c) => {
+	
+	const signupForm = document.querySelector('#signup-form');
+	const loginForm = document.querySelector('#login-form');
+	const logoutBtn = document.querySelector('#logout-btn');
+	const loginErrorMsg = $('#login-error-msg');
 
-if (signupForm) {
-	signupForm.addEventListener('submit', function (event) {
-		event.preventDefault();
 
-		const user = new User(
-			this.name.value,
-			this.email.value,
-			this.password.value,
-			this.confirmPassword.value
-		);
 
-		axios
-			.post('/signup', { user })
-			.then((response) => {
-				swal({
-					title: `${response.data.msg.toUpperCase()}`,
-					// text: response.data.Prod_Title,
-					icon: 'success',
-					buttons: {
-						confirm: 'OK',
-					},
-				}).then(() => {
-					window.location.href = '/login';
+	if(loginForm) {
+		loginForm.addEventListener('submit', function(event) {
+
+			event.preventDefault();
+			const user = {
+				Usr_Email: this.email.value,
+				Usr_Password: this.password.value
+			}
+			
+			// POST /login
+			axios
+				.post('/login', { user }, {
+					headers: {
+						'CSRF-Token': token
+					}
+				})
+				.then((response) => {
+
+					swal({
+						title: "Inicio exitoso!",
+						text: 'Reedireccionando a la pagina de inicio',
+						icon: "success",
+						buttons: false
+					  })
+					  
+					  setTimeout(() => {
+						window.location.href = '/';
+					  }, 1000)
+				})
+				.catch(err => {
+					c(err.response.data)
+				})
+		})
+	}
+
+	if (signupForm) {
+		signupForm.addEventListener('submit', function (event) {
+			event.preventDefault();
+	
+			const user = new User(
+				this.name.value,
+				this.email.value,
+				this.password.value,
+				// this.confirmPassword.value
+			);
+	
+			axios
+				.post('/signup', { user },{
+					headers: {
+						'CSRF-Token': token
+					}
+				})
+				.then((response) => {
+					swal({
+						title: `${response.data.msg.toUpperCase()}`,
+						// text: response.data.Prod_Title,
+						icon: 'success',
+						buttons: {
+							confirm: 'OK',
+						},
+					}).then(() => {
+						window.location.href = '/login';
+					});
+				})
+				.catch((err) => {
+					console.log(err.response);
 				});
-			})
-			.catch((err) => {
-				console.log(err.response);
-			});
-	});
-}
+		});
+	}
+
+	if(logoutBtn) {
+
+		logoutBtn.addEventListener('click', (event) => {
+
+			event.preventDefault();
+
+			swal({
+				title: "Cerrar sesion?",
+				text: "Seguro que deseas salir?",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+			  })
+			  .then((willDelete) => {
+				if (willDelete) {
+
+					axios
+						.post('/logout', {}, {
+							headers: {
+								'CSRF-Token': token
+							}
+						})
+						.then(response => {
+							swal(response.data.msg.toUpperCase(), {
+								icon: "success",
+							})
+							.then(() => {
+								window.location.href = "/"
+							});
+						})
+				} else {
+				  swal("De acuerdo, continua navegando seguro!");
+				}
+			  });
+
+		});
+	}
+	
+
+})(console.log)
+

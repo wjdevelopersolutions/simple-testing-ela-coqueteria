@@ -15,11 +15,7 @@ const usuarioSchema = new Schema({
 	Usr_Password: {
 		type: String,
 		required: true,
-	},
-	Usr_Confirm_Password: {
-		type: String,
-		required: true,
-	},
+	},	
 	Usr_Cart: {
 		Cart_Items: [
 			{

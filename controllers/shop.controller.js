@@ -11,8 +11,7 @@ const getShop = (req, res, next) => {
 					icon: 'shopping bag',
 					leyenda: 'Shopping now!',
 				},
-				isAuthentication: req.session.isLogguedIn,
-				products,
+				products
 			},
 		});
 	});
@@ -28,14 +27,14 @@ const getProducts = (req, res, next) => {
 					icon: 'boxes',
 					leyenda: 'Show all products!',
 				},
-				isAuthentication: req.session.isLogguedIn,
-				products,
+				products
 			},
 		});
 	});
 };
 
 const getProductBySlugUrl = (req, res, next) => {
+
 	Product.findOne({
 		Prod_Slug_Url: req.params.url,
 	}).then((product) => {
@@ -47,14 +46,19 @@ const getProductBySlugUrl = (req, res, next) => {
 					icon: 'eye',
 					leyenda: 'Show product detail!',
 				},
-				isAuthentication: req.session.isLogguedIn,
-				product,
+				product
 			},
 		});
 	});
 };
 
 const deleteProduct = (req, res, next) => {
+
+	// protected route to private
+	if(!req.session.isLogguedIn) {
+		return res.redirect('/login');
+	};
+
 	Product.findOneAndDelete(req.query.Prod_Id)
 		.then((product) => {
 			console.log('producto eliminado');
@@ -81,13 +85,13 @@ const getCompare = (req, res, next) => {
 				title: 'compare items',
 				icon: 'tasks',
 				leyenda: 'compare you item with others once!',
-			},
-			isAuthentication: req.session.isLogguedIn,
+			}
 		},
 	});
 };
 
 const getCart = (req, res, next) => {
+
 	req.user
 		.populate('Usr_Cart.Cart_Items.Prod_Id')
 		.execPopulate()
@@ -101,14 +105,14 @@ const getCart = (req, res, next) => {
 						icon: 'shop',
 						leyenda: 'My shopping cart!',
 					},
-					products: user.Usr_Cart.Cart_Items,
-					isAuthentication: req.session.isLogguedIn,
+					products: user.Usr_Cart.Cart_Items
 				},
 			});
 		});
 };
 
 const postCart = (req, res, next) => {
+
 	Product.findOne({
 		Prod_Slug_Url: req.body.Prod_Slug_Url,
 	})
@@ -126,6 +130,7 @@ const postCart = (req, res, next) => {
 };
 
 const putCart = (req, res, next) => {
+
 	req.user
 		.removeFromCart(req.body.Prod_Id)
 		.then((product) => {
@@ -143,6 +148,7 @@ const putCart = (req, res, next) => {
 };
 
 const getOrders = (req, res, next) => {
+
 	Order.find({ 'Ord_User.Usr_Id': req.session.user._id }).then((orders) => {
 		res.render('shop/orders', {
 			state: {
@@ -152,14 +158,14 @@ const getOrders = (req, res, next) => {
 					icon: 'dolly',
 					leyenda: 'My order list!',
 				},
-				orders,
-				isAuthentication: req.session.isLogguedIn,
+				orders
 			},
 		});
 	});
 };
 
 const postOrder = (req, res, next) => {
+
 	req.user
 		.populate('Usr_Cart.Cart_Items.Prod_Id')
 		.execPopulate()
@@ -173,7 +179,7 @@ const postOrder = (req, res, next) => {
 			const order = new Order({
 				Ord_Products: products,
 				Ord_User: {
-					Usr_Name: req.user.Usr_Name,
+					Usr_Email: req.user.Usr_Email,
 					Usr_Id: req.user._id,
 				},
 			});

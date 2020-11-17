@@ -1,9 +1,13 @@
 import axios from 'axios';
 import swal from 'sweetalert';
+/**
+ * Csurf npm
+ */
+var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 const insertOne = (product) => {
 	axios
-		.post('/admin/add-product', { product }, { headers: {} })
+		.post('/admin/add-product', { product }, { headers: { 'CSRF-Token': token } })
 		.then((response) => {
 			swal({
 				title: `${response.data.msg.toUpperCase()}`,
@@ -24,7 +28,7 @@ const insertOne = (product) => {
 
 const updateOne = (data) => {
 	axios
-		.post('/admin/add-product', data)
+		.post('/admin/add-product', data, { 'CSRF-Token': token })
 		.then((response) => {
 			swal({
 				title: `${response.data.msg.toUpperCase()}`,

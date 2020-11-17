@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 const adminiController = require('../controllers/admin.controller');
+const isAuth = require('../middlewares/is-auth');
 
 
 router.route('/products')
-    .get(adminiController.getProducts)
+    .get(isAuth, adminiController.getProducts)
     
 router.route('/add-product')
-    .get(adminiController.getAddProducts)
-    .post(adminiController.postAddProducts)
+    .get(isAuth, adminiController.getAddProducts)
+    .post(isAuth, adminiController.postAddProducts)
 
 module.exports = router;

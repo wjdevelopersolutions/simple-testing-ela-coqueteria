@@ -1,25 +1,24 @@
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
+const csurf = require('csurf');
+const flash = require('connect-flash');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const connectDB = require('./utils/db');
 
 const User = require('./models/user.model');
 
-// Initialize express app
 const app = express();
+const csrfProtection = csurf();
 
-// Mongodb connection
 connectDB();
 
-// Connect MongoDB Session
 const store = new MongoDBStore({
 	uri:
 		'mongodb+srv://wjdevelopersolution:Lc1sTQWf6LYTiFce@cluster0.jnklj.mongodb.net/coqueterias',
 	session: 'sessions',
 });
 
-// Session
 app.use(
 	session({
 		secret: 'my secret',
@@ -28,6 +27,7 @@ app.use(
 		store: store,
 	})
 );
+app.use(csrfProtection);
 
 app.use((req, res, next) => {
 	if (!req.session.user) {
@@ -42,6 +42,14 @@ app.use((req, res, next) => {
 			console.log(err);
 		});
 });
+
+app.use((req, res, next) => {
+
+	res.locals.isAuthenticated = req.session.isLoggedIn;
+	res.locals.csrfToken = req.csrfToken();
+	next();
+})
+app.use(flash());
 
 app.set(express.urlencoded({ extended: false }));
 app.use(express.json());
