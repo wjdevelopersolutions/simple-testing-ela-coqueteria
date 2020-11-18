@@ -142,7 +142,9 @@ if (deleteProductBtn) {
 			}).then((willDelete) => {
 				if (willDelete) {
 					axios
-						.delete('/products', {
+						({
+							url: 'http://localhost:4000/products', 
+							method: 'put',
 							params: {
 								Prod_Id: `${this.dataset.product}`,
 							},

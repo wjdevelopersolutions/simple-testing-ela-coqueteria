@@ -1,5 +1,6 @@
 import axios from 'axios';
 import swal from 'sweetalert';
+import Swal from 'sweetalert2'
 import User from '../class/User';
 
 
@@ -14,7 +15,9 @@ var token = document.querySelector('meta[name="csrf-token"]').getAttribute('cont
 	const signupForm = document.querySelector('#signup-form');
 	const loginForm = document.querySelector('#login-form');
 	const logoutBtn = document.querySelector('#logout-btn');
-	const loginErrorMsg = $('#login-error-msg');
+	const resetPassword = document.querySelector('#reset-password');
+	const newPassword = document.querySelector('#new-password-form');
+	
 
 
 
@@ -48,7 +51,11 @@ var token = document.querySelector('meta[name="csrf-token"]').getAttribute('cont
 					  }, 1000)
 				})
 				.catch(err => {
-					c(err.response.data)
+					if(err.response.status === 404) {
+						return toastr.error(err.response.data.msg, 'Ops!')
+					}
+					toastr.warning(err.response.data.error.msg)
+					console.log(err.response);
 				})
 		})
 	}
@@ -123,6 +130,64 @@ var token = document.querySelector('meta[name="csrf-token"]').getAttribute('cont
 				}
 			  });
 
+		});
+	}
+
+	if(resetPassword) {
+
+		resetPassword.addEventListener('submit', function(event){
+			event.preventDefault();
+			console.log("Reseteando la contrasena");
+
+			axios.post('http://localhost:4000/reset', { Usr_Email: this.Usr_Email.value }, {
+				headers: {
+					'CSRF-Token': token
+				}
+			}).then(response => {
+				return Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: response.data.msg,
+					showConfirmButton: false,
+					timer: 1500
+				  })
+			})
+			.then(result => {
+				window.location.href = '/login';
+			})
+			.catch(err => {
+				console.log(err);
+			})
+		});
+	}
+
+	if(newPassword) {
+		newPassword.addEventListener('submit', function(event){
+			event.preventDefault();
+			console.log("nueva contrasena");
+
+			axios.post(`http://localhost:4000/reset/${this.CRYPTO_Token.value}`, { 
+				Usr_Password: this.Usr_Password.value, 
+				Usr_Id: this.Usr_Id.value,
+				CRYPTO_Token: this.CRYPTO_Token.value
+			 }, {
+				headers: {
+					'CSRF-Token': token
+				}
+			})
+			.then(response => {
+				return Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: response.data.msg,
+					showConfirmButton: false,
+					timer: 1500
+				  })
+			})
+			.then(result => {
+				window.location.href = '/login'
+			})
+			.catch(err => console.log(err.response))
 		});
 	}
 	

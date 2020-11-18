@@ -8,7 +8,7 @@ mixin productDetail
                             .breadcrumb-content.text-center
                                 h1= state.product.Prod_Title.slice(0, 40) 
                                     |   &nbsp;
-                                    a(class="ui green empty circular label") 
+                                    a.ui.empty.circular.label(class= state.product.Prod_Avaliable > 0 ? 'green' : 'red') 
                                 nav(role='navigation' aria-label='breadcrumbs')
                                     ul.breadcrumb-list
                                         li
@@ -65,11 +65,11 @@ mixin productDetail
                                                             .item
                                                                 i.icon.handshake.outline 
                                                                 |   Vendidos
-                                                                .floating.ui.bg-danger.label 22
+                                                                .floating.ui.bg-danger.label= state.product.Prod_Sold
                                                             .item
                                                                 i.icon.flag.outline 
                                                                 |   Disponible
-                                                                .floating.ui.bg-success.label 15
+                                                                .floating.ui.bg-success.label= state.product.Prod_Avaliable
                                                         if isAuthenticated
                                                             button#AddToCart.ui.button(type='submit')
                                                                 i.icon.shop

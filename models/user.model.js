@@ -16,6 +16,10 @@ const usuarioSchema = new Schema({
 		type: String,
 		required: true,
 	},	
+	Usr_ResetToken: String,
+	Usr_ResetTokenExpiration: {
+		type: Date
+	},
 	Usr_Cart: {
 		Cart_Items: [
 			{

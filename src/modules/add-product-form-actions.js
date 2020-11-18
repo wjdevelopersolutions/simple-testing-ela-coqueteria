@@ -7,7 +7,11 @@ var token = document.querySelector('meta[name="csrf-token"]').getAttribute('cont
 
 const insertOne = (product) => {
 	axios
-		.post('/admin/add-product', { product }, { headers: { 'CSRF-Token': token } })
+		.post('/admin/add-product', { product }, {
+			headers: {
+				'CSRF-Token': token
+			}
+		})
 		.then((response) => {
 			swal({
 				title: `${response.data.msg.toUpperCase()}`,
@@ -28,7 +32,11 @@ const insertOne = (product) => {
 
 const updateOne = (data) => {
 	axios
-		.post('/admin/add-product', data, { 'CSRF-Token': token })
+		.post('/admin/add-product', data, { 
+			headers: {
+				'CSRF-Token': token
+			}
+		 })
 		.then((response) => {
 			swal({
 				title: `${response.data.msg.toUpperCase()}`,

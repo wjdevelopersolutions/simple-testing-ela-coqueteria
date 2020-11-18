@@ -52,20 +52,14 @@ const getProductBySlugUrl = (req, res, next) => {
 	});
 };
 
-const deleteProduct = (req, res, next) => {
+const putProduct = (req, res, next) => {
 
-	// protected route to private
-	if(!req.session.isLogguedIn) {
-		return res.redirect('/login');
-	};
-
-	Product.findOneAndDelete(req.query.Prod_Id)
-		.then((product) => {
-			console.log('producto eliminado');
+	Product.deleteOne({ _id: req.query.Prod_Id, Usr_Id: req.user._id })
+		.then(productDB => {
 			res.json({
 				success: true,
 				msg: 'producto eliminado',
-				Prod_Id: product.Prod_Title,
+				Prod_Title: productDB.Prod_Title,
 			});
 		})
 		.catch((error) => {
@@ -75,6 +69,7 @@ const deleteProduct = (req, res, next) => {
 				msg: 'No se pudo eliminar el producto',
 			});
 		});
+
 };
 
 const getCompare = (req, res, next) => {
@@ -219,7 +214,7 @@ module.exports = {
 	getShop,
 	getProducts,
 	getProductBySlugUrl,
-	deleteProduct,
+	putProduct,
 	getCompare,
 	getCart,
 	postCart,

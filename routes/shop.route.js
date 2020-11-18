@@ -9,7 +9,7 @@ const isAuth = require('../middlewares/is-auth');
 router
 	.route('/products')
 	.get(shopController.getProducts)
-	.delete(isAuth, shopController.deleteProduct);
+	.put(isAuth, shopController.putProduct);
 
 router.route('/products/:url').get(shopController.getProductBySlugUrl);
 

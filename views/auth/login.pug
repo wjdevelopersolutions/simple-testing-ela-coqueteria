@@ -5,6 +5,10 @@ include ../components/login-form
 
 block body
 
-    .row.d-flex.justify-content-center    
+    .row.d-flex.align-items-center.flex-column    
         .col-md-5.col-12.mt-3.mt-5
             +loginForm
+        .col-md-5.mt-3
+            p
+                | Olvidaste tu contrasena? 
+                a(href="/reset") Recuperar

@@ -2,7 +2,7 @@ include ./components/navigation
 
 <!DOCTYPE html>
 head
-    title= state.pageTitle
+    title Store | #{state.pageTitle}
     meta(charset="utf-8")
     meta(meta name="csrf-token" content= csrfToken)
     meta(viewport="width=device-width, initial-scale=1.0, user-scalable")
@@ -15,6 +15,7 @@ head
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.css")
 
     link(rel="stylesheet", href="/Semantic-UI-CSS-master/semantic.min.css")
+    link(rel="stylesheet", href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css")
     link(rel="stylesheet", href="/dist/bundle.css")
 body
 
@@ -28,4 +29,5 @@ body
     script(src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js")
     script(src="/dist/bundle.js")

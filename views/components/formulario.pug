@@ -4,7 +4,7 @@ mixin formulario()
     - const product = state.product 
     - const Prod_Images = state.product ? product.Prod_Images.join(';') : ''
 
-    form#addProductForm(action="" method="")
+    form#addProductForm
         .form-group
             label(for="titulo") Nombre del producto:
             input.form-control#form-titulo(type="text" name="titulo" value= product ? product.Prod_Title : '')

@@ -1,0 +1,17 @@
+extends ../layout
+
+include ../components/breadcrumb
+include ../components/login-form
+
+block body
+
+    .row.d-flex.align-items-center.flex-column 
+        .col-md-5.col-12.mt-3.mt-5
+
+            form#reset-password(action="/reset" method="post")
+                .form-group
+                    label(for="Usr_Email") Ingresa tu correo electronico
+                    input.form-control(type="email" name="Usr_Email")
+                .form-group
+                    button.btn.btn-primary(type="submit") 
+                        span Recuperar
